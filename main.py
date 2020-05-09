@@ -1,6 +1,5 @@
 # KidsCanCode - Game Development with Pygame video series
 # Tile-based game - Part 14
-# Better Zombie Movement
 # Video link: https://youtu.be/4KJjLqowym0
 import pygame as pg
 import sys
