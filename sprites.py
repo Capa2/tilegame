@@ -1,4 +1,9 @@
 import pygame as pg
+
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid
+from pathfinding.finder.a_star import AStarFinder
+
 from random import uniform, choice
 from settings import *
 from tilemap import collide_hit_rect

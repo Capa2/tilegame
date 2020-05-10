@@ -1,6 +1,11 @@
 import pygame as pg
 import pytmx
+import numpy as np
 from settings import *
+
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid
+from pathfinding.finder.a_star import AStarFinder
 
 def collide_hit_rect(one, two):
     return one.hit_rect.colliderect(two.rect)
@@ -8,7 +13,7 @@ def collide_hit_rect(one, two):
 class Map:
     def __init__(self, filename):
         self.data = []
-        with open(filename, 'rt') as f:
+        with open(filename, 'rtva') as f:
             for line in f:
                 self.data.append(line.strip())
 
@@ -23,6 +28,14 @@ class TiledMap:
         self.width = tm.width * tm.tilewidth
         self.height = tm.height * tm.tileheight
         self.tmxdata = tm
+        matrix = np.zeros((tm.height, tm.width))
+        for layer in self.tmxdata.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer):
+                for y, x, gid, in layer:
+                    if gid != 0:
+                        matrix[y][x] = gid
+                #matrix.reshape(y+1, x+1)
+        print(matrix)
 
     def render(self, surface):
         ti = self.tmxdata.get_tile_image_by_gid
